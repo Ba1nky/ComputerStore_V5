@@ -1,0 +1,55 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.AspNetCore.Builder
+@using Microsoft.AspNetCore.Localization
+
+@using Microsoft.Extensions.Options
+ 
+@inject IOptions<RequestLocalizationOptions> LocOptions
+
+@inject IViewLocalizer Localizer
+@inject IHtmlLocalizer<SharedResource> SharedLocalizer
+
+
+@model IEnumerable<ComputerStore.Models.Product>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var requestCulture = Context.Features.Get<IRequestCultureFeature>();
+    var cultureItems = LocOptions.Value.SupportedUICultures
+        .Select(c => new SelectListItem { Value = c.Name, Text = c.NativeName })
+        .ToList();
+}
+
+<div>
+    <h3>@SharedLocalizer["ComputerStore"]</h3>
+    <form asp-controller="Home" asp-action="SetLanguage" style="margin-top:20px;"
+      asp-route-returnUrl="@Context.Request.Path"
+      method="post" class="form-horizontal">
+    Language: <select name="culture" onchange="this.form.submit();"
+                                    asp-for="@requestCulture.RequestCulture.UICulture.Name"
+                                    asp-items="cultureItems"></select>
+    </form>
+    <table>
+        <tr class="header">
+            <td><p>@SharedLocalizer["Name"]</p></td>
+            <td><p>@SharedLocalizer["Description"]</p></td>
+            <td><p>@SharedLocalizer["Category"]</p></td>
+            <td><p>@SharedLocalizer["Price"]</p></td>
+            <td></td>
+            <td></td>
+        </tr>
+        @foreach(ComputerStore.Models.Product p in Model)
+        {
+            <tr>
+                <td><p>@p.Name</p></td>
+                <td><p>@p.Description</p></td>
+                <td><p>@p.Category.Name</p></td>
+                <td><p>@p.Price</p></td>
+                <td><p><a href="/Home/Buy/@p.ProductId">@SharedLocalizer["Buy"]</a></p></td>
+                <td><p>|</p></td>
+                <td><p><a href="/Home/EditProduct/@p.ProductId">@SharedLocalizer["Edit"]</a></p></td>
+                <td><p>|</p></td>
+                <td><p><a href="/Home/DeleteProduct/@p.ProductId">@SharedLocalizer["Delete"]</a></p></td>
+            </tr>
+        }
+    </table>
+</div>

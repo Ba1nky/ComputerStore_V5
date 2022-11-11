@@ -1,0 +1,40 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+ 
+@inject IViewLocalizer Localizer
+@inject IHtmlLocalizer<SharedResource> SharedLocalizer
+
+@model ComputerStore.Models.Product
+@{
+    ViewBag.Title = "Редагувати продукт";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>@SharedLocalizer["Product"] №@Model.ProductId</h2>
+@using (Html.BeginForm("EditProduct","Home",FormMethod.Post))
+{
+    <fieldset>
+        @Html.HiddenFor(m => m.ProductId)
+        <p>
+            @Html.LabelFor(m => m.Name,@SharedLocalizer["Name"])
+            <br>
+            @Html.EditorFor(m => m.Name)
+        </p>
+        <p>
+            @Html.LabelFor(m => m.Description,@SharedLocalizer["Description"])
+            <br>
+            @Html.EditorFor(m => m.Description)
+        </p>
+        <p>
+            @Html.LabelFor(m => m.Category,@SharedLocalizer["Category"])
+            <br>
+            @Html.DropDownListFor(m => m.CategoryId, ViewBag.Categories as SelectList)
+        </p>
+        <p>
+            @Html.LabelFor(m => m.Price,@SharedLocalizer["Price"])
+            <br>
+            @Html.EditorFor(m => m.Price)
+        </p>
+        <p>
+            <input type="submit" value=@SharedLocalizer["Edit"]> 
+        </p>
+    </fieldset>
+}

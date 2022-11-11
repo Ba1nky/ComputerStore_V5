@@ -1,0 +1,35 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+ 
+@inject IViewLocalizer Localizer
+@inject IHtmlLocalizer<SharedResource> SharedLocalizer
+
+@model ComputerStore.Models.Product
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>@SharedLocalizer["DeleteProduct"]</h2>
+<dl>
+    <dt>@SharedLocalizer["Name"]</dt>
+    <dd>
+        @Html.DisplayFor(m => m.Name)
+    </dd>
+
+    <dt>@SharedLocalizer["Description"]</dt>
+    <dd>
+        @Html.DisplayFor(m => m.Description)
+    </dd>
+
+    <dt>@SharedLocalizer["Category"]</dt>
+    <dd>
+        @Html.DisplayFor(m => m.Category.Name)
+    </dd>
+
+    <dt>@SharedLocalizer["Price"]</dt>
+    <dd>
+        @Html.DisplayFor(m => m.Price)
+    </dd>
+</dl>
+@using (Html.BeginForm())
+{
+    <input type="submit" value=@SharedLocalizer["Delete"]>
+}

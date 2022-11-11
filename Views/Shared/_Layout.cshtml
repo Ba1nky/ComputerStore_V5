@@ -1,0 +1,31 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.AspNetCore.Builder
+@using Microsoft.AspNetCore.Localization
+
+@using Microsoft.Extensions.Options
+
+
+@inject IViewLocalizer Localizer
+@inject IHtmlLocalizer<SharedResource> SharedLocalizer
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewBag.Title</title>
+    <link href="@Url.Content("~/css/Site.css")" rel="stylesheet" type="text/css"/>
+</head>
+
+<body>
+    <nav>
+        <ul class="menu">
+            <li>@Html.ActionLink(SharedLocalizer["Main"].Value,"Index","Home")</li>
+            <li>@Html.ActionLink(SharedLocalizer["CreateProduct"].Value,"CreateProduct","Home")</li>
+        </ul>
+    </nav>
+    @RenderBody()
+</body>
+</html>

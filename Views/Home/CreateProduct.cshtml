@@ -1,0 +1,37 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+ 
+@inject IViewLocalizer Localizer
+@inject IHtmlLocalizer<SharedResource> SharedLocalizer
+
+
+@model ComputerStore.Models.Product
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@SharedLocalizer["CreateProduct"]</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.LabelFor(m => m.Name,@SharedLocalizer["Name"])
+    <br>
+    @Html.EditorFor(m => m.Name)
+    <br>
+    <br>
+    @Html.LabelFor(m => m.Description,@SharedLocalizer["Description"])
+    <br>
+    @Html.EditorFor(m => m.Description)
+    <br>
+    <br>
+    @Html.LabelFor(m => m.Category,@SharedLocalizer["Category"])
+    <br>
+    @Html.DropDownListFor(m => m.CategoryId, ViewBag.Categories as SelectList)
+    <br>
+    <br>
+    @Html.LabelFor(m => m.Price,@SharedLocalizer["Price"])
+    <br>
+    @Html.EditorFor(m => m.Price)
+    <br>
+    <br>
+    <input type="submit" value=@SharedLocalizer["Create"]>
+}

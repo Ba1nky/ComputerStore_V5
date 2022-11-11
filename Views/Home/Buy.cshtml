@@ -1,0 +1,28 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+ 
+@inject IViewLocalizer Localizer
+@inject IHtmlLocalizer<SharedResource> SharedLocalizer
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h3>@SharedLocalizer["CreatePurchase"]</h3>
+    <form method="post" action="">
+        <input type="hidden" value="@ViewBag.ProductId" name="ProductId" />
+        <table>
+            <tr>
+                <td><p>@SharedLocalizer["InputPerson"]</p></td>
+                <td><input type="text" name="Person"></td>
+            </tr>
+            <tr>
+                <td><p>@SharedLocalizer["InputAdress"]</p></td>
+                <td><input type="text" name="Adress"></td>
+            </tr>
+            <tr>
+                <td><input type="submit" value=@SharedLocalizer["Buy"]></td>
+            </tr>
+        </table>
+    </form>
+</div>
